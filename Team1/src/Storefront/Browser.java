@@ -5,8 +5,14 @@ import java.awt.*;
 
 public class Browser extends JFrame {
 	
+	private JPanel browser_panel;
+	private Listing[] listings_array;
+	private JScrollPane scrollPane;
+	
     public Browser() {
     	initialize();
+    	run();
+    	
     }
     
     private void initialize() {
@@ -14,7 +20,7 @@ public class Browser extends JFrame {
         setSize(800, 1000);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        JPanel browser_panel = new JPanel();
+        browser_panel = new JPanel();
         browser_panel.setLayout(null);
         
         // loop to dynamically initialize listings as panels to the main screen
@@ -33,7 +39,7 @@ public class Browser extends JFrame {
         int panelHeight = (listings_array.length * 300) + 10;
         browser_panel.setPreferredSize(new Dimension(0, panelHeight));
         
-        JScrollPane scrollPane = new JScrollPane(browser_panel);
+        scrollPane = new JScrollPane(browser_panel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         getContentPane().add(scrollPane);
         setVisible(true);
@@ -42,4 +48,9 @@ public class Browser extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Browser());
     }
+    
+    public void run() { 
+        
+    }
+    
 }
