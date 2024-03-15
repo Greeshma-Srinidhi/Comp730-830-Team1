@@ -28,7 +28,7 @@ public class Browser extends JFrame {
     	Listing[] listings_array;
         listings_array = new Listing[40];
         for (int i = 0; i < 40; i++) {
-            listings_array[i] = new Listing("Listing " + i);
+            listings_array[i] = new Listing("Listing " + i, "Example", "This is an example description", "12.99", "10", "img");
             browser_panel.add(listings_array[i]); // add each listing panel to application
             listings_array[i].setLocation(0, 300 * i); // set location to avoid overlap (300 is height of each listing)
             browser_panel.revalidate(); // refresh the layout
