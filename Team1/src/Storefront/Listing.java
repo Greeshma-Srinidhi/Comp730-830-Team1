@@ -11,9 +11,7 @@ class Listing extends JPanel {
     private String Title;
     private String Description;
     private String Price;
-    private double PriceNum;
     private String Quantity;
-    private int QuantityNum;
     private String Image;
 
     public Listing(String ListingID, String Title, String Description, String Price, String Quantity, String Image) {
@@ -22,11 +20,57 @@ class Listing extends JPanel {
     	this.Title = Title;
     	this.Description = Description;
     	this.Price = Price;
-    	this.PriceNum = Double.parseDouble(Price);
     	this.Quantity = Quantity;
-    	this.QuantityNum = Integer.parseInt(Quantity);
     	this.Image = Image;
     	initialize();
+    }
+    
+    public String getListingID() {
+    	return ListingID;
+    }
+    
+    public void setListingID(String ListingID) {
+    	this.ListingID = ListingID;
+    }
+    
+    public String getTitle() {
+    	return Title;
+    }
+    
+    public void setTitle(String Title) {
+    	this.Title = Title;
+    }
+    
+    public String getDescription() {
+    	return Description;
+    }
+    
+    public void setDescription(String Description) {
+    	this.Description = Description;
+    }
+    
+    public String getPrice() {
+    	return Price;
+    }
+    
+    public void SetPrice(String Price) {
+    	this.Price = Price;
+    }
+    
+    public String getQuantity() {
+    	return Quantity;
+    }
+    
+    public void setQuantity(String Quantity) {
+    	this.Quantity = Quantity;
+    }
+    
+    public String getImage() {
+    	return Image;
+    }
+    
+    public void setImage(String Image) {
+    	this.Image = Image;
     }
     
     private void initialize() {
