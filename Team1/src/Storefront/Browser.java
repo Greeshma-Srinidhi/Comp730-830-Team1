@@ -17,7 +17,7 @@ public class Browser extends JFrame {
     
     private void initialize() {
         setTitle("Listings Browser");
-        setSize(800, 1000);
+        setSize(625, 1000);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         browser_panel = new JPanel();
