@@ -43,7 +43,17 @@ public class Browser extends JFrame {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         getContentPane().add(scrollPane);
         setVisible(true);
+        
+        // set view to the top of the page. (by default, the view was being set to the bottom of all listings).
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                scrollPane.getViewport().setViewPosition( new Point(0, 0) );
+            }
+        });
     }
+    
+    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Browser());
