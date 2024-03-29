@@ -2,6 +2,8 @@ package Storefront;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Browser extends JFrame {
 	
@@ -23,6 +25,35 @@ public class Browser extends JFrame {
         browser_panel = new JPanel();
         browser_panel.setLayout(null);
         
+        JPanel menu_panel = new JPanel();
+    	menu_panel.setSize(600, 300);
+    	menu_panel.setLayout(null);
+        menu_panel.setBounds(0, 0, 590, 100);
+        browser_panel.add(menu_panel);
+        
+        JLabel lblStoreFront = new JLabel("Storefront");
+        lblStoreFront.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        lblStoreFront.setBounds(10, 11, 170, 75);
+        menu_panel.add(lblStoreFront);
+        
+        JButton btnCreateListing = new JButton("Create listing");
+        btnCreateListing.setBounds(462, 11, 118, 32);
+        menu_panel.add(btnCreateListing);
+        btnCreateListing.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent CreateListing) {
+				// add functionality later...
+			}
+		});
+        
+        JButton btnEditListings = new JButton("Edit Listings");
+        btnEditListings.setBounds(462, 54, 118, 32);
+        menu_panel.add(btnEditListings);
+        btnEditListings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent EditListings) {
+				// add functionality later...
+			}
+		});
+        
         // loop to dynamically initialize listings as panels to the main screen
         // change the number 40 to the number of database entries we start with
     	Listing[] listings_array;
@@ -30,7 +61,7 @@ public class Browser extends JFrame {
         for (int i = 0; i < 40; i++) {
             listings_array[i] = new Listing("Listing " + i, "Example", "This is an example description", "12.99", "10", "img");
             browser_panel.add(listings_array[i]); // add each listing panel to application
-            listings_array[i].setLocation(0, 300 * i); // set location to avoid overlap (300 is height of each listing)
+            listings_array[i].setLocation(0, 300 * i + 100); // set location to avoid overlap (300 is height of each listing)
             browser_panel.revalidate(); // refresh the layout
         }
         
@@ -40,6 +71,8 @@ public class Browser extends JFrame {
         browser_panel.setPreferredSize(new Dimension(0, panelHeight));
         
         scrollPane = new JScrollPane(browser_panel);
+        
+
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         getContentPane().add(scrollPane);
         setVisible(true);
@@ -54,7 +87,6 @@ public class Browser extends JFrame {
     }
     
     
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Browser());
     }
@@ -62,5 +94,4 @@ public class Browser extends JFrame {
     public void run() { 
         
     }
-    
 }
