@@ -2,6 +2,9 @@ package Storefront;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.border.MatteBorder;
 
 // Individual Listing Object (test for now)
@@ -107,5 +110,14 @@ class Listing extends JPanel {
         lblImage.setIcon(null);
         lblImage.setBounds(346, 31, 244, 244);
         add(lblImage);
+        
+        JButton btnAddToCart = new JButton("Add To Cart");
+        btnAddToCart.setBounds(10, 266, 135, 23);
+        btnAddToCart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// add functionality later...
+			}
+		});
+        add(btnAddToCart);
     }
 }
