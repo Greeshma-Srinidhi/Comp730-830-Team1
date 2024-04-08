@@ -69,7 +69,7 @@ public class Browser extends JFrame {
         
         // set expected total height of panels. this allows the scroll bar to function
         // 300 is the pre-defined height of each listing panel
-        int panelHeight = (listings_array.length * 300) + 10;
+        int panelHeight = (listings_array.length * 300) + 100;
         browser_panel.setPreferredSize(new Dimension(0, panelHeight));
         
         

@@ -16,8 +16,9 @@ class Listing extends JPanel {
     private String Price;
     private String Quantity;
     private String Image;
+    private String Seller;
 
-    public Listing(String ListingID, String Title, String Description, String Price, String Quantity, String Image) {
+    public Listing(String ListingID, String Title, String Description, String Price, String Quantity, String Image, String Seller) {
     	setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
     	this.ListingID = ListingID;
     	this.Title = Title;
@@ -25,6 +26,7 @@ class Listing extends JPanel {
     	this.Price = Price;
     	this.Quantity = Quantity;
     	this.Image = Image;
+    	this.Seller = Seller;
     	initialize();
     }
     
@@ -76,9 +78,18 @@ class Listing extends JPanel {
     	this.Image = Image;
     }
     
+    public String getSeller() {
+    	return Seller;
+    }
+    
+    public void setSeller(String Seller) {
+    	this.Seller = Seller;
+    }
+    
     private void initialize() {
     	setSize(600, 300);
-        lblListingID = new JLabel(ListingID);
+        lblListingID = new JLabel("Listing #" + ListingID);
+        lblListingID.setHorizontalAlignment(SwingConstants.RIGHT);
         lblListingID.setBounds(535, 6, 55, 14);
         setLayout(null);
         add(lblListingID);
@@ -111,13 +122,19 @@ class Listing extends JPanel {
         lblImage.setBounds(346, 31, 244, 244);
         add(lblImage);
         
+        JLabel lblSeller = new JLabel("Seller: " + Seller);
+        lblSeller.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblSeller.setBounds(10, 266, 151, 20);
+        add(lblSeller);
+        
         JButton btnAddToCart = new JButton("Add To Cart");
-        btnAddToCart.setBounds(10, 266, 135, 23);
+        btnAddToCart.setBounds(175, 267, 135, 23);
         btnAddToCart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// add functionality later...
 			}
 		});
         add(btnAddToCart);
+        
     }
 }

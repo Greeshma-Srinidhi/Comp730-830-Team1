@@ -31,7 +31,6 @@ public class Database {
 	        e.printStackTrace();
 	        JOptionPane.showMessageDialog(null, "Failed to fetch listings data from the database.", "Error", JOptionPane.ERROR_MESSAGE);
 	    }
-		JOptionPane.showMessageDialog(null, file);
 		return rowCount;
 	}
 	
@@ -48,7 +47,8 @@ public class Database {
                     rs.getString("Description"),
                     rs.getString("Price"),
                     rs.getString("Quantity"),
-                    rs.getString("Image")
+                    rs.getString("Image"),
+                    rs.getString("Seller")
             );
         } catch (SQLException e) {
         e.printStackTrace();
