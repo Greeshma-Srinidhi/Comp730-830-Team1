@@ -10,7 +10,7 @@ public class Browser extends JFrame {
 
     private JPanel browser_panel;
     private JScrollPane scrollPane;
-    private static final String DATABASE_URL = "jdbc:sqlite:C:/Users/unhmguest/sqlite/store.db"; // Path to your SQLite database
+    private static final String DATABASE_URL = "jdbc:sqlite:C:/Users/seanb/eclipse-workspace/Comp730-830-Team1/Database/store.db"; // Path to your SQLite database
 
     public Browser() {
         initialize();
@@ -65,56 +65,5 @@ public class Browser extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Browser::new);
-    }
-}
-
-// Individual Listing Object
-class Listing extends JPanel {
-    private JLabel lblListingID;
-    private String ListingID;
-    private String Title;
-    private String Description;
-    private String Price;
-    private String Quantity;
-    private String Image;
-
-    public Listing(String ListingID, String Title, String Description, String Price, String Quantity, String Image) {
-        setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.ListingID = ListingID;
-        this.Title = Title;
-        this.Description = Description;
-        this.Price = Price;
-        this.Quantity = Quantity;
-        this.Image = Image;
-        initialize();
-    }
-
-    private void initialize() {
-        setSize(600, 300);
-        lblListingID = new JLabel("Listing ID: " + ListingID);
-        lblListingID.setBounds(10, 6, 170, 14);
-        setLayout(null);
-        add(lblListingID);
-
-        JLabel lblTitle = new JLabel("Title: " + Title);
-        lblTitle.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblTitle.setBounds(10, 30, 170, 20);
-        add(lblTitle);
-
-        JLabel lblDescription = new JLabel("Description: " + Description);
-        lblDescription.setBounds(10, 60, 400, 20);
-        add(lblDescription);
-
-        JLabel lblPrice = new JLabel("Price: $" + Price);
-        lblPrice.setBounds(10, 90, 100, 20);
-        add(lblPrice);
-
-        JLabel lblQuantity = new JLabel("Quantity: " + Quantity);
-        lblQuantity.setBounds(10, 120, 100, 20);
-        add(lblQuantity);
-
-        JLabel lblImage = new JLabel("Image: " + Image);
-        lblImage.setBounds(10, 150, 400, 20);
-        add(lblImage);
     }
 }
