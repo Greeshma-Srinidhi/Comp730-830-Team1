@@ -5,10 +5,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.net.URL;
 
 public class Database {
 	
-	private static final String DATABASE_URL = "jdbc:sqlite:C:/Users/seanb/eclipse-workspace/Comp730-830-Team1/Database/store.db"; // Path to your SQLite database
+	
+	private final URL url = getClass().getResource("store.db");
+	private final String file = url.getPath();
+	private final String DATABASE_URL = "jdbc:sqlite:" + file; // Path to your SQLite database
 
 	public Database() {
 	
@@ -27,6 +31,7 @@ public class Database {
 	        e.printStackTrace();
 	        JOptionPane.showMessageDialog(null, "Failed to fetch listings data from the database.", "Error", JOptionPane.ERROR_MESSAGE);
 	    }
+		JOptionPane.showMessageDialog(null, file);
 		return rowCount;
 	}
 	
