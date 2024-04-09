@@ -12,7 +12,6 @@ public class Browser extends JFrame {
     private JScrollPane scrollPane;
     private int database_size;
     private Listing initialized_listing;
-    //private Listing[] listings_array;
     private final Database database = new Database();
     
     public static void main(String[] args) {
@@ -29,7 +28,6 @@ public class Browser extends JFrame {
     private void initialize_database() {
     	// create database object and find size
         database_size = database.fetchTableSize();
-        //listings_array = new Listing[255];
     }
     
     private void initialize_screen() {
