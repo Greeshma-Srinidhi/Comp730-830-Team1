@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.border.MatteBorder;
 
+@SuppressWarnings("serial")
 // Individual Listing Object (test for now)
 class Listing extends JPanel {
     private JLabel lblListingID;
