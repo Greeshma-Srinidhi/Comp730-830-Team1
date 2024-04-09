@@ -77,7 +77,7 @@ public class Browser extends JFrame {
 		        		        
 		        // this adds the new listing to the browser screen
 	            browser_panel.add(createdlisting); 
-	            createdlisting.setLocation(0, 300 * (database_size) + 100); 
+	            createdlisting.setLocation(0, 300 * (database_size - 1) + 100); 
 	            browser_panel.revalidate();
 	            int panelHeight = (database_size * 300) + 100;
 	            browser_panel.setPreferredSize(new Dimension(0, panelHeight));

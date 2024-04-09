@@ -91,7 +91,7 @@ class Listing extends JPanel {
     	setSize(600, 300);
         lblListingID = new JLabel("Listing #" + ListingID);
         lblListingID.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblListingID.setBounds(535, 6, 55, 14);
+        lblListingID.setBounds(516, 6, 74, 14);
         setLayout(null);
         add(lblListingID);
         
