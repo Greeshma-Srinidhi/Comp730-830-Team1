@@ -55,33 +55,7 @@ public class Browser extends JFrame {
         menu_panel.add(btnCreateListing);
         btnCreateListing.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				// this block creates a dialog box for creating a new listing using CreateListing.java
-				// it will open and not allow the browser to continue running code until completed
-				// the resulting output is a new listing object
-		        CreateListing dialogFrame = new CreateListing();
-		        JDialog dialog = new JDialog(dialogFrame, "Dialog", true);
-		        dialog.setSize(450, 300);
-		        dialog.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-		        dialog.getContentPane().add(dialogFrame.getContentPane());
-		        dialogFrame.setListingID(Integer.toString(database_size + 1));
-		        dialog.setVisible(true);
-		        
-		        // this runs after the dialog box has been completed
-		        // it saves the created listing to a variable and pushes it to the database
-		        Listing createdlisting = (dialogFrame.getCreatedListing());
-		        database.insertListingData(createdlisting);
-		        
-		        // update for the new size of the database
-		        database_size = database.fetchTableSize();
-		        		        
-		        // this adds the new listing to the browser screen
-	            browser_panel.add(createdlisting); 
-	            createdlisting.setLocation(0, 300 * (database_size - 1) + 100); 
-	            browser_panel.revalidate();
-	            int panelHeight = (database_size * 300) + 100;
-	            browser_panel.setPreferredSize(new Dimension(0, panelHeight));
-	           
+				create_listings();
 			}
 		});
         
@@ -123,6 +97,35 @@ public class Browser extends JFrame {
                 scrollPane.getViewport().setViewPosition( new Point(0, 0) );
             }
         });
+    }
+    
+    public void create_listings() {
+    	
+		// this block creates a dialog box for creating a new listing using CreateListing.java
+		// it will open and not allow the browser to continue running code until completed
+		// the resulting output is a new listing object
+        CreateListing dialogFrame = new CreateListing();
+        JDialog dialog = new JDialog(dialogFrame, "Dialog", true);
+        dialog.setSize(450, 300);
+        dialog.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        dialog.getContentPane().add(dialogFrame.getContentPane());
+        dialogFrame.setListingID(Integer.toString(database_size + 1));
+        dialog.setVisible(true);
+        
+        // this runs after the dialog box has been completed
+        // it saves the created listing to a variable and pushes it to the database
+        Listing createdlisting = (dialogFrame.getCreatedListing());
+        database.insertListingData(createdlisting);
+        
+        // update for the new size of the database
+        database_size = database.fetchTableSize();
+        		        
+        // this adds the new listing to the browser screen
+        browser_panel.add(createdlisting); 
+        createdlisting.setLocation(0, 300 * (database_size - 1) + 100); 
+        browser_panel.revalidate();
+        int panelHeight = (database_size * 300) + 100;
+        browser_panel.setPreferredSize(new Dimension(0, panelHeight));
     }
     
 
