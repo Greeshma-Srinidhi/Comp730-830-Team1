@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -102,8 +104,13 @@ public class CreateListing extends JFrame {
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listing = new Listing(ListingID, txtTitle.getText(), txtDescription.getText(), txtPrice.getText(), txtQuantity.getText(), txtImage.getText(), txtSeller.getText());
-				setVisible(false);
+				if (txtTitle.getText().toString().isEmpty() || txtDescription.getText().toString().isEmpty() || txtPrice.getText().toString().isEmpty() 
+				|| txtQuantity.getText().toString().isEmpty() || txtImage.getText().toString().isEmpty() || txtSeller.getText().toString().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Please fill all fields");
+				} else {
+					listing = new Listing(ListingID, txtTitle.getText(), txtDescription.getText(), txtPrice.getText(), txtQuantity.getText(), txtImage.getText(), txtSeller.getText());
+					setVisible(false);
+				}
 			}
 		});
 		btnSubmit.setBounds(335, 169, 89, 30);
@@ -112,6 +119,7 @@ public class CreateListing extends JFrame {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				listing = null;
 				setVisible(false);
 			}
 		});

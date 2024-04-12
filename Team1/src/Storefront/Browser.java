@@ -112,20 +112,22 @@ public class Browser extends JFrame {
         dialogFrame.setListingID(Integer.toString(database_size + 1));
         dialog.setVisible(true);
         
-        // this runs after the dialog box has been completed
-        // it saves the created listing to a variable and pushes it to the database
-        Listing createdlisting = (dialogFrame.getCreatedListing());
-        database.insertListingData(createdlisting);
-        
-        // update for the new size of the database
-        database_size = database.fetchTableSize();
-        		        
-        // this adds the new listing to the browser screen
-        browser_panel.add(createdlisting); 
-        createdlisting.setLocation(0, 300 * (database_size - 1) + 100); 
-        browser_panel.revalidate();
-        int panelHeight = (database_size * 300) + 100;
-        browser_panel.setPreferredSize(new Dimension(0, panelHeight));
+        if (dialogFrame.getCreatedListing() != null) {
+            // this runs after the dialog box has been completed
+            // it saves the created listing to a variable and pushes it to the database
+            Listing createdlisting = (dialogFrame.getCreatedListing());
+            database.insertListingData(createdlisting);
+            
+            // update for the new size of the database
+            database_size = database.fetchTableSize();
+            		        
+            // this adds the new listing to the browser screen
+            browser_panel.add(createdlisting); 
+            createdlisting.setLocation(0, 300 * (database_size - 1) + 100); 
+            browser_panel.revalidate();
+            int panelHeight = (database_size * 300) + 100;
+            browser_panel.setPreferredSize(new Dimension(0, panelHeight));
+        }
     }
     
 
