@@ -10,24 +10,17 @@ public class Browser extends JFrame {
 
     private JPanel browser_panel;
     private JScrollPane scrollPane;
-    private int database_size;
     private Listing initialized_listing;
     private final Database database = new Database();
+    private int database_size = database.fetchTableSize();
     
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Browser::new);
     }
     
     public Browser() {
-    	initialize_database();
         initialize_screen();
         initialize_listings();
-    }
-    
-
-    private void initialize_database() {
-    	// create database object and find size
-        database_size = database.fetchTableSize();
     }
     
     private void initialize_screen() {
