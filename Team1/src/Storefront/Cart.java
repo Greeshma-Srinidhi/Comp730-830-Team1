@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,6 +24,7 @@ public class Cart extends JFrame {
 	private int database_size;
 	private int carted_item_count = 0;
 	private Listing[] listings_array;
+	private double total;
 
     public static void main(String[] args) {
     	
@@ -52,8 +55,8 @@ public class Cart extends JFrame {
         
         JLabel lblCart = new JLabel("Cart");
         lblCart.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        lblCart.setBounds(10, 11, 170, 75);
-        menu_panel.add(lblCart);       
+        lblCart.setBounds(10, 0, 170, 75);
+        menu_panel.add(lblCart);
         
         JButton btnCloseCart = new JButton("Close Cart");
         btnCloseCart.setBounds(470, 54, 110, 32);
@@ -81,11 +84,17 @@ public class Cart extends JFrame {
             if (listings_array[i].getCartedAmount() != 0) {
                 cart_panel.add(listings_array[i]); // add each listing panel to application
                 listings_array[i].setLocation(0, 300 * carted_item_count + 100); // set location to avoid overlap (300 is height of each listing)
+                total = total + Double.parseDouble(listings_array[i].getPrice());
                 cart_panel.revalidate(); // refresh the layout
                 listings_array[i].CartModeOn();
                 carted_item_count++;
             }
         }
+        
+        JLabel lblTotal = new JLabel("Total: $" + total);
+        lblTotal.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        lblTotal.setBounds(10, 58, 170, 42);
+        menu_panel.add(lblTotal);
         
         // set expected total height of panels. this allows the scroll bar to function
         // 300 is the pre-defined height of each listing panel
