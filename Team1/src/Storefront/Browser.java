@@ -10,15 +10,17 @@ public class Browser extends JFrame {
 
     private JPanel browser_panel;
     private JScrollPane scrollPane;
-    private Listing initialized_listing;
     private final Database database = new Database();
     private int database_size = database.fetchTableSize();
+    private Listing[] listings_array = new Listing[255];
+    private int array_size;
     
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Browser::new);
     }
     
     public Browser() {
+    	
         initialize_screen();
         initialize_listings();
     }
@@ -44,7 +46,7 @@ public class Browser extends JFrame {
         menu_panel.add(lblStoreFront);
         
         JButton btnCreateListing = new JButton("Create listing");
-        btnCreateListing.setBounds(462, 11, 118, 32);
+        btnCreateListing.setBounds(350, 11, 110, 32);
         menu_panel.add(btnCreateListing);
         btnCreateListing.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -53,23 +55,42 @@ public class Browser extends JFrame {
 		});
         
         JButton btnEditListings = new JButton("Edit Listings");
-        btnEditListings.setBounds(462, 54, 118, 32);
+        btnEditListings.setBounds(350, 54, 110, 32);
         menu_panel.add(btnEditListings);
         btnEditListings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// add functionality later...
 			}
 		});
+        
+        JButton btnViewCart = new JButton("View Cart");
+        btnViewCart.setBounds(470, 54, 110, 32);
+        menu_panel.add(btnViewCart);
+        btnViewCart.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		view_cart();
+        	}
+        });
+         
+        JButton btnLogIn = new JButton("Login");
+        btnLogIn.setBounds(470, 11, 110, 32);
+        menu_panel.add(btnLogIn);
+        btnLogIn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		// add functionality later...
+        	}
+        });
     }
     
     private void initialize_listings() {   
         
         // loop to dynamically initialize listings as panels to the main screen
         for (int i = 0; i < database_size; i++) {
-            initialized_listing = database.fetchListingsData(i + 1); // initialize new listing object from database. (i + 1) represents ListingID. 
-            browser_panel.add(initialized_listing); // add each listing panel to application
-            initialized_listing.setLocation(0, 300 * i + 100); // set location to avoid overlap (300 is height of each listing)
+        	listings_array[i] = database.fetchListingsData(i + 1); // initialize new listing object from database. (i + 1) represents ListingID. 
+            browser_panel.add(listings_array[i]); // add each listing panel to application
+            listings_array[i].setLocation(0, 300 * i + 100); // set location to avoid overlap (300 is height of each listing)
             browser_panel.revalidate(); // refresh the layout
+            array_size++;
         }
         
         // set expected total height of panels. this allows the scroll bar to function
@@ -92,13 +113,13 @@ public class Browser extends JFrame {
         });
     }
     
-    public void create_listings() {
+    private void create_listings() {
     	
 		// this block creates a dialog box for creating a new listing using CreateListing.java
 		// it will open and not allow the browser to continue running code until completed
 		// the resulting output is a new listing object
         CreateListing dialogFrame = new CreateListing();
-        JDialog dialog = new JDialog(dialogFrame, "Dialog", true);
+        JDialog dialog = new JDialog(dialogFrame, "Create Listing", true);
         dialog.setSize(450, 300);
         dialog.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
         dialog.getContentPane().add(dialogFrame.getContentPane());
@@ -110,6 +131,8 @@ public class Browser extends JFrame {
             // it saves the created listing to a variable and pushes it to the database
             Listing createdlisting = (dialogFrame.getCreatedListing());
             database.insertListingData(createdlisting);
+            listings_array[array_size] = createdlisting;
+            array_size++;
             
             // update for the new size of the database
             database_size = database.fetchTableSize();
@@ -123,6 +146,18 @@ public class Browser extends JFrame {
         }
     }
     
-
-    
+    private void view_cart() {
+    	
+    	//
+    	Cart dialogFrame = new Cart(database, database_size, listings_array);
+        JDialog dialog = new JDialog(dialogFrame, "Cart", true);
+        dialog.setSize(625, 1000);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.getContentPane().add(dialogFrame.getContentPane());
+        dialog.setVisible(true);
+        
+        for (int i = 0; i < database_size; i++) {       
+                listings_array[i].CartModeOff();
+        }
+    }
 }
