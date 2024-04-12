@@ -109,6 +109,7 @@ public class CreateListing extends JFrame {
 					JOptionPane.showMessageDialog(null, "Please fill all fields");
 				} else {
 					listing = new Listing(ListingID, txtTitle.getText(), txtDescription.getText(), txtPrice.getText(), txtQuantity.getText(), txtImage.getText(), txtSeller.getText());
+					JOptionPane.showMessageDialog(null, "Listing #" + ListingID + " has been created.");
 					setVisible(false);
 				}
 			}
@@ -125,12 +126,6 @@ public class CreateListing extends JFrame {
 		});
 		btnCancel.setBounds(335, 220, 89, 30);
 		contentPane.add(btnCancel);
-		setVisible(false);
-		
-	}
-	
-	public void MakeVisible() {
-		setVisible(true);
 	}
 	
 	public void setListingID(String ListingID) {
