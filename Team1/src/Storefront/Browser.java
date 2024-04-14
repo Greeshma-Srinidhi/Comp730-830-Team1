@@ -155,7 +155,16 @@ public class Browser extends JFrame {
             String username = JOptionPane.showInputDialog("Enter your username:");
             String password = JOptionPane.showInputDialog("Enter your password:");
 
-            
+            // Compare entered credentials with predefined values
+            if (username != null && password != null && username.equals("admin") && password.equals("admin123")) {
+                loggedIn = true;
+                loggedInUsername = username;
+                JOptionPane.showMessageDialog(null, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid username or password. Please try again.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
     
     private void view_cart() {
     	
