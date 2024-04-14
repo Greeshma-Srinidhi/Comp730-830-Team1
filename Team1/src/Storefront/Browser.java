@@ -14,6 +14,8 @@ public class Browser extends JFrame {
     private int database_size = database.fetchTableSize();
     private Listing[] listings_array = new Listing[255];
     private int array_size;
+    private boolean loggedIn = false; // Track login status
+    private String loggedInUsername = ""; // Track the username of the logged-in user
     
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Browser::new);
@@ -77,7 +79,7 @@ public class Browser extends JFrame {
         menu_panel.add(btnLogIn);
         btnLogIn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		// add functionality later...
+        		login();
         	}
         });
     }
@@ -145,6 +147,15 @@ public class Browser extends JFrame {
             browser_panel.setPreferredSize(new Dimension(0, panelHeight));
         }
     }
+    
+    private void login() {
+        if (loggedIn) {
+            JOptionPane.showMessageDialog(null, "You are already logged in as " + loggedInUsername + ".", "Already Logged In", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            String username = JOptionPane.showInputDialog("Enter your username:");
+            String password = JOptionPane.showInputDialog("Enter your password:");
+
+            
     
     private void view_cart() {
     	
