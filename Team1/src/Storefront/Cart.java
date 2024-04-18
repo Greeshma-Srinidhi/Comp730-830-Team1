@@ -118,7 +118,7 @@ public class Cart extends JFrame {
         });
 	}
 	
-	public void removedFromCart(String price) {
+	public void removedFromCart() {
 		total = 0;
 		carted_item_count = 0;
 		

@@ -168,7 +168,7 @@ class Listing extends JPanel {
         btnRemoveFromCart.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		CartedAmount = 0;
-        		observer.notifyRemovedFromCart(Price);
+        		observer.notifyRemovedFromCart();
         		setVisible(false);
         	}
         });

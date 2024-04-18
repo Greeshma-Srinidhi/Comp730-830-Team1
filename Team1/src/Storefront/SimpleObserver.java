@@ -8,9 +8,9 @@ public class SimpleObserver {
         this.cart = cart;
     }
 
-    public void notifyRemovedFromCart(String price) {
+    public void notifyRemovedFromCart() {
         if (cart != null) {
-            cart.removedFromCart(price);
+            cart.removedFromCart();
         }
     }
 }
