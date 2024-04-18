@@ -103,10 +103,6 @@ class Listing extends JPanel {
     	return CartedAmount;
     }
     
-    private void setObserver(SimpleObserver observer) {
-    	this.observer = observer;
-    }
-    
     private void initialize() {
     	setSize(600, 300);
         lblListingID = new JLabel("Listing #" + ListingID);

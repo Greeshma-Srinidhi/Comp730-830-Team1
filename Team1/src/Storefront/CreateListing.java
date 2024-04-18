@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
@@ -33,6 +32,7 @@ public class CreateListing extends JFrame {
     }
 
 	public CreateListing(SimpleObserver observer) {
+		this.observer = observer;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
