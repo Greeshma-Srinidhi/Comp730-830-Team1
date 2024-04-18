@@ -28,9 +28,11 @@ class Listing extends JPanel {
     private JLabel lblSeller;
     private JButton btnAddToCart;
     private JButton btnRemoveFromCart;
+    private SimpleObserver observer;
 
-    public Listing(String ListingID, String Title, String Description, String Price, String Quantity, String Image, String Seller) {
+    public Listing(SimpleObserver observer, String ListingID, String Title, String Description, String Price, String Quantity, String Image, String Seller) {
     	setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+    	this.observer = observer;
     	this.ListingID = ListingID;
     	this.Title = Title;
     	this.Description = Description;
@@ -101,6 +103,10 @@ class Listing extends JPanel {
     	return CartedAmount;
     }
     
+    private void setObserver(SimpleObserver observer) {
+    	this.observer = observer;
+    }
+    
     private void initialize() {
     	setSize(600, 300);
         lblListingID = new JLabel("Listing #" + ListingID);
@@ -162,6 +168,7 @@ class Listing extends JPanel {
         btnRemoveFromCart.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		CartedAmount = 0;
+        		observer.notifyRemovedFromCart(Price);
         		setVisible(false);
         	}
         });

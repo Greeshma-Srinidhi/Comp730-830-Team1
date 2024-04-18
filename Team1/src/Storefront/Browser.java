@@ -10,7 +10,8 @@ public class Browser extends JFrame {
 
     private JPanel browser_panel;
     private JScrollPane scrollPane;
-    private final Database database = new Database();
+    private SimpleObserver observer = new SimpleObserver();
+    private final Database database = new Database(observer);
     private int database_size = database.fetchTableSize();
     private Listing[] listings_array = new Listing[255];
     private int array_size;
@@ -120,7 +121,7 @@ public class Browser extends JFrame {
 		// this block creates a dialog box for creating a new listing using CreateListing.java
 		// it will open and not allow the browser to continue running code until completed
 		// the resulting output is a new listing object
-        CreateListing dialogFrame = new CreateListing();
+        CreateListing dialogFrame = new CreateListing(observer);
         JDialog dialog = new JDialog(dialogFrame, "Create Listing", true);
         dialog.setSize(450, 300);
         dialog.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
@@ -169,7 +170,8 @@ public class Browser extends JFrame {
     private void view_cart() {
     	
     	//
-    	Cart dialogFrame = new Cart(database, database_size, listings_array);
+    	Cart dialogFrame = new Cart(database, database_size, observer, listings_array);
+    	observer.setCart(dialogFrame);
         JDialog dialog = new JDialog(dialogFrame, "Cart", true);
         dialog.setSize(625, 1000);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

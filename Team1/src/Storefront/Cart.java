@@ -11,6 +11,7 @@ import java.util.TimerTask;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
@@ -25,13 +26,14 @@ public class Cart extends JFrame {
 	private int carted_item_count = 0;
 	private Listing[] listings_array;
 	private double total;
+    private SimpleObserver observer;
+    private JLabel lblTotal;
 
     public static void main(String[] args) {
     	
-        SwingUtilities.invokeLater(CreateListing::new);
     }
 
-	public Cart(Database database, int database_size, Listing[] listings_array) {
+	public Cart(Database database, int database_size, SimpleObserver observer, Listing[] listings_array) {
 		this.database = database;
 		this.database_size = database_size;
 		this.listings_array = listings_array;
@@ -91,7 +93,7 @@ public class Cart extends JFrame {
             }
         }
         
-        JLabel lblTotal = new JLabel("Total: $" + total);
+        lblTotal = new JLabel("Total: $" + total);
         lblTotal.setFont(new Font("Tahoma", Font.PLAIN, 22));
         lblTotal.setBounds(10, 58, 170, 42);
         menu_panel.add(lblTotal);
@@ -114,6 +116,31 @@ public class Cart extends JFrame {
                 scrollPane.getViewport().setViewPosition( new Point(0, 0) );
             }
         });
+	}
+	
+	public void removedFromCart(String price) {
+		total = 0;
+		carted_item_count = 0;
+		
+		for (int i = 0; i < database_size; i++) {      
+                cart_panel.revalidate();
+        }
+		
+        for (int i = 0; i < database_size; i++) {
+            
+            // if statement to determine whether the item is in the cart or not.
+            if (listings_array[i].getCartedAmount() != 0) {
+                cart_panel.add(listings_array[i]); // add each listing panel to application
+                listings_array[i].setLocation(0, 300 * carted_item_count + 100); // set location to avoid overlap (300 is height of each listing)
+                listings_array[i].setVisible(true);
+                total = total + Double.parseDouble(listings_array[i].getPrice());
+                cart_panel.revalidate(); // refresh the layout
+                listings_array[i].CartModeOn();
+                carted_item_count++;
+            }
+        }
+        
+        lblTotal.setText("Total: $" + total);
 	}
 	
 	

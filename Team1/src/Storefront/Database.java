@@ -6,10 +6,14 @@ import java.net.URL;
 
 public class Database {
 	
-	
 	private final URL url = getClass().getResource("store.db");
 	private final String file = url.getPath();
 	private final String DATABASE_URL = "jdbc:sqlite:" + file; // Path to SQLite database
+	private SimpleObserver observer;
+	
+	public Database(SimpleObserver observer) {
+		this.observer = observer;
+	}
 
 	public int fetchTableSize() {
 		int rowCount = 0;
@@ -35,6 +39,7 @@ public class Database {
 
         // Dynamically create and add Listing panels based on database entries        	
             listing = new Listing(
+            		observer,
                     rs.getString("ListingID"),
                     rs.getString("Title"),
                     rs.getString("Description"),

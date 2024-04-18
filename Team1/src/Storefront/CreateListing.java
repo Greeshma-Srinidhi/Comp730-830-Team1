@@ -26,12 +26,13 @@ public class CreateListing extends JFrame {
 	private JTextField txtSeller;
 	private String ListingID;
 	private Listing listing = null;
+	private SimpleObserver observer;
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(CreateListing::new);
+    	
     }
 
-	public CreateListing() {
+	public CreateListing(SimpleObserver observer) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -108,7 +109,7 @@ public class CreateListing extends JFrame {
 				|| txtQuantity.getText().toString().isEmpty() || txtImage.getText().toString().isEmpty() || txtSeller.getText().toString().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Please fill all fields");
 				} else {
-					listing = new Listing(ListingID, txtTitle.getText(), txtDescription.getText(), txtPrice.getText(), txtQuantity.getText(), txtImage.getText(), txtSeller.getText());
+					listing = new Listing(observer, ListingID, txtTitle.getText(), txtDescription.getText(), txtPrice.getText(), txtQuantity.getText(), txtImage.getText(), txtSeller.getText());
 					JOptionPane.showMessageDialog(null, "Listing #" + ListingID + " has been created.");
 					setVisible(false);
 				}
