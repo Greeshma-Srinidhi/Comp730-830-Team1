@@ -83,10 +83,15 @@ public class Browser extends JFrame {
         		login();
         	}
         });
+        
+        // create scrollpane and set options
+        scrollPane = new JScrollPane(browser_panel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        getContentPane().add(scrollPane);
     }
     
     private void initialize_listings() {   
-        
+    	
         // loop to dynamically initialize listings as panels to the main screen
         for (int i = 0; i < database_size; i++) {
         	listings_array[i] = database.fetchListingsData(i + 1); // initialize new listing object from database. (i + 1) represents ListingID. 
@@ -101,12 +106,6 @@ public class Browser extends JFrame {
         int panelHeight = (database_size * 300) + 100;
         browser_panel.setPreferredSize(new Dimension(0, panelHeight));
         
-        // create scrollpane and set options
-        scrollPane = new JScrollPane(browser_panel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        getContentPane().add(scrollPane);
-        setVisible(true);
-        
         // set view to the top of the page. (by default, the view was being set to the bottom of all listings).
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -114,6 +113,22 @@ public class Browser extends JFrame {
                 scrollPane.getViewport().setViewPosition( new Point(0, 0) );
             }
         });
+        
+        setVisible(true);
+    }
+    
+    private void reinitialize_listings() {
+    	
+        for (int i = 0; i < database_size; i++) {       
+            listings_array[i].CartModeOff();
+            listings_array[i].setVisible(false);
+        }
+        
+    	for (int i = 0; i < database_size; i++) {
+    		browser_panel.add(listings_array[i]); // add each listing panel to application
+    		listings_array[i].setLocation(0, 300 * i + 100); // set location to avoid overlap (300 is height of each listing)
+    		listings_array[i].setVisible(true);
+    	}
     }
     
     private void create_listings() {
@@ -178,8 +193,6 @@ public class Browser extends JFrame {
         dialog.getContentPane().add(dialogFrame.getContentPane());
         dialog.setVisible(true);
         
-        for (int i = 0; i < database_size; i++) {       
-                listings_array[i].CartModeOff();
-        }
+        reinitialize_listings();
     }
 }
