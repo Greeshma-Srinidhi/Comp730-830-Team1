@@ -103,6 +103,10 @@ class Listing extends JPanel {
     	return Carted;
     }
     
+    public void setCarted(boolean Carted) {
+    	this.Carted = Carted;
+    }
+    
     private void initialize() {
     	setSize(600, 300);
         lblListingID = new JLabel("Listing #" + ListingID);

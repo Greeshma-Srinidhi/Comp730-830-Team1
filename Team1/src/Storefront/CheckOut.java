@@ -17,6 +17,7 @@ import java.awt.BorderLayout;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -31,6 +32,7 @@ public class CheckOut extends JFrame {
 	private double total;
 	private Listing[] listings_array;
 	private String[] carted_array = new String[255];
+	private boolean complete_status = false;
 	
 	
 	public CheckOut(Database database, int database_size, SimpleObserver observer, Listing[] listings_array, double total) {
@@ -68,10 +70,10 @@ public class CheckOut extends JFrame {
 		lblPageTitle.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		contentPane.add(lblPageTitle);
 		
-		JTextField txtTitle = new JTextField();
-		txtTitle.setBounds(242, 202, 182, 20);
-		contentPane.add(txtTitle);
-		txtTitle.setColumns(10);
+		JTextField txtCardHolderName = new JTextField();
+		txtCardHolderName.setBounds(242, 202, 182, 20);
+		contentPane.add(txtCardHolderName);
+		txtCardHolderName.setColumns(10);
 		
 		JTextField txtCardNumber = new JTextField();
 		txtCardNumber.setColumns(10);
@@ -127,7 +129,19 @@ public class CheckOut extends JFrame {
 		contentPane.add(btnCompletePayment);
 		btnCompletePayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//
+				if (txtCardNumber.getText().toString().isEmpty() || txtExpiration.getText().toString().isEmpty() || txtSecurityCode.getText().toString().isEmpty() 
+						|| txtCardHolderName.getText().toString().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Please fill all fields");
+				} else {
+				for (int i = 0; i < database_size; i++) { 
+					if (listings_array[i].getCarted() != false) {
+						listings_array[i].setQuantity(Integer.toString((Integer.parseInt(listings_array[i].getQuantity()) - 1)));
+					}
+				}
+				complete_status = true;
+				JOptionPane.showMessageDialog(null, "Purchase Complete for $" + total);
+				setVisible(false);
+				}
 			}
 		});
 		
@@ -140,5 +154,9 @@ public class CheckOut extends JFrame {
         		dispose();
 			}
 		});
+	}
+	
+	public boolean getCompleteStatus() {
+		return complete_status;
 	}
 }

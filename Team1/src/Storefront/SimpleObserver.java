@@ -13,4 +13,5 @@ public class SimpleObserver {
             cart.removedFromCart();
         }
     }
+    
 }

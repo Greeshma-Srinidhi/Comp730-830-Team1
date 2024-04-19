@@ -149,10 +149,38 @@ public class Cart extends JFrame {
     	CheckOut dialogFrame = new CheckOut(database, database_size, observer, listings_array, total);
         JDialog dialog = new JDialog(dialogFrame, "Check Out", true);
         dialog.setSize(450, 300);
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
         dialog.getContentPane().add(dialogFrame.getContentPane());
         dialog.setVisible(true);
+        
+        if (dialogFrame.getCompleteStatus() != false) {
+            for (int i = 0; i < database_size; i++) {
+            	listings_array[i].setCarted(false);
+            }
+        }
+        
+        total = 0;
+		carted_item_count = 0;
+		
+		for (int i = 0; i < database_size; i++) { 
+				listings_array[i].setVisible(false);
+                cart_panel.revalidate();
+        }
+		
+        for (int i = 0; i < database_size; i++) {
+            
+            // if statement to determine whether the item is in the cart or not.
+            if (listings_array[i].getCarted() != false) {
+                cart_panel.add(listings_array[i]); // add each listing panel to application
+                listings_array[i].setLocation(0, 300 * carted_item_count + 100); // set location to avoid overlap (300 is height of each listing)
+                listings_array[i].setVisible(true);
+                total = total + Double.parseDouble(listings_array[i].getPrice());
+                cart_panel.revalidate(); // refresh the layout
+                listings_array[i].CartModeOn();
+                carted_item_count++;
+            }
+        }
+        
+        lblTotal.setText("Total: $" + total);
 	}
-	
-	
 }
