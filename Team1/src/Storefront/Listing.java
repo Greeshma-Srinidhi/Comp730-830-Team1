@@ -18,7 +18,7 @@ class Listing extends JPanel {
     private String Quantity;
     private String Image;
     private String Seller;
-    private int CartedAmount = 0;
+    private boolean Carted = false;
     private JLabel lblTitle;
     private JTextPane txtDescription;
     private JLabel lblPrice;
@@ -99,8 +99,8 @@ class Listing extends JPanel {
     	this.Seller = Seller;
     }
      
-    public int getCartedAmount() {
-    	return CartedAmount;
+    public boolean getCarted() {
+    	return Carted;
     }
     
     private void initialize() {
@@ -153,7 +153,7 @@ class Listing extends JPanel {
         btnAddToCart.setBounds(175, 267, 135, 23);
         btnAddToCart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CartedAmount = CartedAmount + 1;
+				Carted = true;
 			}
 		});
         add(btnAddToCart);
@@ -163,7 +163,7 @@ class Listing extends JPanel {
         add(btnRemoveFromCart);
         btnRemoveFromCart.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		CartedAmount = 0;
+        		Carted = false;
         		observer.notifyRemovedFromCart();
         		setVisible(false);
         	}

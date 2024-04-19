@@ -56,16 +56,7 @@ public class Browser extends JFrame {
 				create_listings();
 			}
 		});
-        
-        JButton btnEditListings = new JButton("Edit Listings");
-        btnEditListings.setBounds(350, 54, 110, 32);
-        menu_panel.add(btnEditListings);
-        btnEditListings.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// add functionality later...
-			}
-		});
-        
+               
         JButton btnViewCart = new JButton("View Cart");
         btnViewCart.setBounds(470, 54, 110, 32);
         menu_panel.add(btnViewCart);
@@ -123,7 +114,6 @@ public class Browser extends JFrame {
             listings_array[i].CartModeOff();
             listings_array[i].setVisible(false);
         }
-        
     	for (int i = 0; i < database_size; i++) {
     		browser_panel.add(listings_array[i]); // add each listing panel to application
     		listings_array[i].setLocation(0, 300 * i + 100); // set location to avoid overlap (300 is height of each listing)
@@ -184,7 +174,6 @@ public class Browser extends JFrame {
     
     private void view_cart() {
     	
-    	//
     	Cart dialogFrame = new Cart(database, database_size, observer, listings_array);
     	observer.setCart(dialogFrame);
         JDialog dialog = new JDialog(dialogFrame, "Cart", true);

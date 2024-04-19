@@ -9,6 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -75,7 +76,7 @@ public class Cart extends JFrame {
         menu_panel.add(btnCheckOut);
         btnCheckOut.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		// add functionality later...
+        		doCheckOut();
         	}
         });
         
@@ -83,7 +84,7 @@ public class Cart extends JFrame {
         for (int i = 0; i < database_size; i++) {
             
             // if statement to determine whether the item is in the cart or not.
-            if (listings_array[i].getCartedAmount() != 0) {
+            if (listings_array[i].getCarted() != false) {
                 cart_panel.add(listings_array[i]); // add each listing panel to application
                 listings_array[i].setLocation(0, 300 * carted_item_count + 100); // set location to avoid overlap (300 is height of each listing)
                 total = total + Double.parseDouble(listings_array[i].getPrice());
@@ -129,7 +130,7 @@ public class Cart extends JFrame {
         for (int i = 0; i < database_size; i++) {
             
             // if statement to determine whether the item is in the cart or not.
-            if (listings_array[i].getCartedAmount() != 0) {
+            if (listings_array[i].getCarted() != false) {
                 cart_panel.add(listings_array[i]); // add each listing panel to application
                 listings_array[i].setLocation(0, 300 * carted_item_count + 100); // set location to avoid overlap (300 is height of each listing)
                 listings_array[i].setVisible(true);
@@ -141,6 +142,16 @@ public class Cart extends JFrame {
         }
         
         lblTotal.setText("Total: $" + total);
+	}
+	
+	private void doCheckOut() {
+		
+    	CheckOut dialogFrame = new CheckOut(database, database_size, observer, listings_array, total);
+        JDialog dialog = new JDialog(dialogFrame, "Check Out", true);
+        dialog.setSize(450, 300);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.getContentPane().add(dialogFrame.getContentPane());
+        dialog.setVisible(true);
 	}
 	
 	
