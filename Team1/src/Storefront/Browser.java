@@ -120,31 +120,36 @@ public class Browser extends JFrame {
         // this block creates a dialog box for creating a new listing using CreateListing.java
         // it will open and not allow the browser to continue running code until completed
         // the resulting output is a new listing object
-        CreateListing dialogFrame = new CreateListing(observer);
-        JDialog dialog = new JDialog(dialogFrame, "Create Listing", true);
-        dialog.setSize(450, 300);
-        dialog.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        dialog.getContentPane().add(dialogFrame.getContentPane());
-        dialogFrame.setListingID(Integer.toString(database_size + 1));
-        dialog.setVisible(true);
+    	
+    	if (observer.getLoggedInStatus() == true) {
+    		CreateListing dialogFrame = new CreateListing(observer);
+    		JDialog dialog = new JDialog(dialogFrame, "Create Listing", true);
+    		dialog.setSize(450, 300);
+    		dialog.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+    		dialog.getContentPane().add(dialogFrame.getContentPane());
+    		dialogFrame.setListingID(Integer.toString(database_size + 1));
+    		dialog.setVisible(true);
 
-        if (dialogFrame.getCreatedListing() != null) {
-            // this runs after the dialog box has been completed
-            // it saves the created listing to a variable and pushes it to the database
-            Listing createdlisting = (dialogFrame.getCreatedListing());
-            database.insertListingData(createdlisting);
-            listings_array[array_size] = createdlisting;
-            array_size++;
+        	if (dialogFrame.getCreatedListing() != null) {
+        		// this runs after the dialog box has been completed
+        		// it saves the created listing to a variable and pushes it to the database
+        		Listing createdlisting = (dialogFrame.getCreatedListing());
+        		database.insertListingData(createdlisting);
+        		listings_array[array_size] = createdlisting;
+        		array_size++;
 
-            // update for the new size of the database
-            database_size = database.fetchTableSize();
+        		// update for the new size of the database
+        		database_size = database.fetchTableSize();
 
-            // this adds the new listing to the browser screen
-            browser_panel.add(createdlisting);
-            createdlisting.setLocation(0, 300 * (database_size - 1) + 100);
-            browser_panel.revalidate();
-            int panelHeight = (database_size * 300) + 100;
-            browser_panel.setPreferredSize(new Dimension(0, panelHeight));
+        		// this adds the new listing to the browser screen
+        		browser_panel.add(createdlisting);
+        		createdlisting.setLocation(0, 300 * (database_size - 1) + 100);
+        		browser_panel.revalidate();
+        		int panelHeight = (database_size * 300) + 100;
+        		browser_panel.setPreferredSize(new Dimension(0, panelHeight));
+        	}
+        } else {
+        	JOptionPane.showMessageDialog(null, "You must be logged in.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -161,6 +166,7 @@ public class Browser extends JFrame {
                 if (password != null && database.checkUserCredentials(username, password)) {
                     loggedIn = true;
                     loggedInUsername = username;
+                    observer.notiyLoggedIn(loggedIn);
                     JOptionPane.showMessageDialog(null, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Incorrect password. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -216,15 +222,19 @@ public class Browser extends JFrame {
     }
 
     private void view_cart() {
-        Cart dialogFrame = new Cart(database, database_size, observer, listings_array);
-        observer.setCart(dialogFrame);
-        JDialog dialog = new JDialog(dialogFrame, "Cart", true);
-        dialog.setSize(625, 1000);
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dialog.getContentPane().add(dialogFrame.getContentPane());
-        dialog.setVisible(true);
+    	if (observer.getLoggedInStatus() == true) {
+    		Cart dialogFrame = new Cart(database, database_size, observer, listings_array);
+        	observer.setCart(dialogFrame);
+        	JDialog dialog = new JDialog(dialogFrame, "Cart", true);
+        	dialog.setSize(625, 1000);
+        	dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        	dialog.getContentPane().add(dialogFrame.getContentPane());
+        	dialog.setVisible(true);
 
-        reinitialize_listings();
+        	reinitialize_listings();
+    	} else {
+    		JOptionPane.showMessageDialog(null, "You must be logged in.", "Error", JOptionPane.ERROR_MESSAGE);
+    	}
     }
 
     private void reinitialize_listings() {

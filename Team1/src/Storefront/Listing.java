@@ -190,7 +190,12 @@ class Listing extends JPanel {
         btnAddToCart.setBounds(175, 267, 135, 23);
         btnAddToCart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Carted = true;
+				if (observer.getLoggedInStatus() == true) {
+					Carted = true;
+					JOptionPane.showMessageDialog(null, Title + " added to cart!");
+				} else {
+					JOptionPane.showMessageDialog(null, "You must be logged in.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
         add(btnAddToCart);
