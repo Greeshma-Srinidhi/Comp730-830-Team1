@@ -87,6 +87,7 @@ class Listing extends JPanel {
     
     public void setQuantity(String Quantity) {
     	this.Quantity = Quantity;
+    	lblQuantity.setText("Quantity: " + Quantity);
     }
     
     public String getImage() {

@@ -128,6 +128,7 @@ public class CheckOut extends JFrame {
 				} else {
 				for (int i = 0; i < database_size; i++) { 
 					if (listings_array[i].getCarted() != false) {
+						database.updateListingQuantity(listings_array[i].getListingID(), Integer.toString((Integer.parseInt(listings_array[i].getQuantity()) - 1)));
 						listings_array[i].setQuantity(Integer.toString((Integer.parseInt(listings_array[i].getQuantity()) - 1)));
 					}
 				}

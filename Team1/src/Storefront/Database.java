@@ -74,6 +74,19 @@ public class Database {
 		
 	}
 	
+    public void updateListingQuantity(String ListingID, String Quantity) {
+        String query = "UPDATE Listings SET Quantity = ? WHERE ListingID = ?";
+        try (Connection conn = DriverManager.getConnection(DATABASE_URL);
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, Quantity);
+            pstmt.setString(2, ListingID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to update quantity.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+	
     public boolean authenticateUser(String username, String password) {
         boolean isAuthenticated = false;
         try (Connection conn = DriverManager.getConnection(DATABASE_URL);

@@ -237,5 +237,6 @@ public class Browser extends JFrame {
             listings_array[i].setLocation(0, 300 * i + 100); // set location to avoid overlap (300 is height of each listing)
             listings_array[i].setVisible(true);
         }
+        
     }
 }
