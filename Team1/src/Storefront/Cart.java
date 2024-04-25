@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
@@ -143,6 +144,7 @@ public class Cart extends JFrame {
 	
 	private void doCheckOut() {
 		
+		if (carted_item_count != 0) {
     	CheckOut dialogFrame = new CheckOut(database, database_size, observer, listings_array, total);
         JDialog dialog = new JDialog(dialogFrame, "Check Out", true);
         dialog.setSize(450, 300);
@@ -179,5 +181,8 @@ public class Cart extends JFrame {
         }
         
         lblTotal.setText("Total: $" + total);
+		} else {
+			JOptionPane.showMessageDialog(null, "Cart is Empty");
+		}
 	}
 }
