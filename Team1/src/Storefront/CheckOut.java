@@ -1,20 +1,13 @@
 package Storefront;
 
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
-import java.awt.BorderLayout;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.JOptionPane;

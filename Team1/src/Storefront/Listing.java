@@ -1,9 +1,14 @@
 package Storefront;
 
+import javax.imageio.IIOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.border.MatteBorder;
 
@@ -26,6 +31,7 @@ class Listing extends JPanel {
     private JLabel lblAmountInCart;
     private JLabel lblImage;
     private JLabel lblSeller;
+    private Image read_image;
     private JButton btnAddToCart;
     private JButton btnRemoveFromCart;
     private SimpleObserver observer;
@@ -109,6 +115,7 @@ class Listing extends JPanel {
     
     private void initialize() {
     	setSize(600, 300);
+    	
         lblListingID = new JLabel("Listing #" + ListingID);
         lblListingID.setHorizontalAlignment(SwingConstants.RIGHT);
         lblListingID.setBounds(516, 6, 74, 14);
@@ -143,11 +150,22 @@ class Listing extends JPanel {
         lblAmountInCart.setBounds(10, 90, 135, 20);
         add(lblAmountInCart);
         
-        lblImage = new JLabel(Image);
-        lblImage.setIcon(null);
-        lblImage.setBounds(346, 31, 244, 244);
-        add(lblImage);
-        
+    	URL url;
+		try {
+			url = new URL(Image);
+	    	read_image = ImageIO.read(url);
+	    	Image scaledImage = read_image.getScaledInstance(244, 244, read_image.SCALE_SMOOTH);
+	        lblImage = new JLabel(new ImageIcon(scaledImage));
+	        lblImage.setBounds(346, 31, 244, 244);
+	        add(lblImage);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IIOException l) {
+			l.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+              
         lblSeller = new JLabel("Seller: " + Seller);
         lblSeller.setFont(new Font("Tahoma", Font.PLAIN, 12));
         lblSeller.setBounds(10, 266, 151, 20);
