@@ -55,6 +55,7 @@ class Listing extends JPanel {
     
     public void setListingID(String ListingID) {
     	this.ListingID = ListingID;
+    	lblListingID.setText("Listing #" + ListingID);
     }
     
     public String getTitle() {
@@ -63,6 +64,7 @@ class Listing extends JPanel {
     
     public void setTitle(String Title) {
     	this.Title = Title;
+    	lblTitle.setText(Title);
     }
     
     public String getDescription() {
@@ -71,6 +73,7 @@ class Listing extends JPanel {
     
     public void setDescription(String Description) {
     	this.Description = Description;
+    	txtDescription.setText(Description);
     }
     
     public String getPrice() {
@@ -79,6 +82,7 @@ class Listing extends JPanel {
     
     public void SetPrice(String Price) {
     	this.Price = Price;
+    	lblPrice.setText(Price);
     }
     
     public String getQuantity() {
@@ -96,6 +100,18 @@ class Listing extends JPanel {
     
     public void setImage(String Image) {
     	this.Image = Image;
+    	URL url;
+		try {
+			url = new URL(Image);
+	    	read_image = ImageIO.read(url);
+	    	Image scaledImage = read_image.getScaledInstance(244, 244, read_image.SCALE_SMOOTH);
+	        lblImage = new JLabel(new ImageIcon(scaledImage));
+	        lblImage.setBounds(346, 31, 244, 244);
+	        add(lblImage);
+		} catch (MalformedURLException e) {
+		} catch (IIOException l) {
+		} catch (IOException e1) {
+		}
     }
     
     public String getSeller() {
@@ -104,6 +120,7 @@ class Listing extends JPanel {
     
     public void setSeller(String Seller) {
     	this.Seller = Seller;
+    	lblSeller.setText("Seller: " + Seller);
     }
      
     public boolean getCarted() {
