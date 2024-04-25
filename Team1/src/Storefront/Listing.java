@@ -159,11 +159,8 @@ class Listing extends JPanel {
 	        lblImage.setBounds(346, 31, 244, 244);
 	        add(lblImage);
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IIOException l) {
-			l.printStackTrace();
 		} catch (IOException e1) {
-			e1.printStackTrace();
 		}
               
         lblSeller = new JLabel("Seller: " + Seller);
